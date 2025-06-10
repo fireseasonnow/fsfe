@@ -1,16 +1,24 @@
+<!DOCTYPE html>
 <html>
 
-<head></head>
+<head>
+    <title>Websocket Demo</title>
+</head>
 
-<body></body>
+<body>
+</body>
 <script>
-    let ws;
-    const proto = window.location.protocol === 'https:' ? 'wss' : 'ws';
-    ws = new WebSocket(`${proto}://${window.location.host}`);
 
-    ws.onmessage = (event) => {
-        console.log(event.data);
+    let ws;
+    try {
+        // Choose correct websocket proto
+        const proto = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        ws = new WebSocket(`${proto}://${window.location.host}`);
+    } catch (e) {
+        // 
     }
+    ws.onmessage = (event) => { console.log(event.data) }
+
 </script>
 
 </html>

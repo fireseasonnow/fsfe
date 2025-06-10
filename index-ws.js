@@ -17,20 +17,26 @@ wss.on('connection', (ws) => {
     const numClients = wss.clients.size;
     console.log('Clients connected: ', numClients);
 
-    wss.broadcast(`Curret visitors: ${numClients}`);
+    wss.broadcast(`Current visitors: ${numClients}`);
 
     if (ws.readyState === ws.OPEN) {
         ws.send('Welcome to my server');
     }
 
     ws.on('close', () => {
-        wss.broadcast(`Curret version: ${numClients}`);
+        wss.broadcast(`Current visitors: ${numClients}`);
         console.log('Client disconnected');
     })
 });
 
 wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
-        client.send(data);
+        if (client.readyState === client.OPEN) {
+            try {
+                client.send(data);
+            } catch (e) {
+                console.error('Broadcast error:', e);
+            }
+        }
     });
 }
