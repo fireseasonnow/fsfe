@@ -1,6 +1,4 @@
 const express = require('express');
-const { connect } = require('http2');
-const { createConnection } = require('net');
 const server = require('http').createServer();
 const app = express()
 
